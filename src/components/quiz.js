@@ -11,6 +11,7 @@ function Quiz() {
       question: "Please select one of the following",
       options: ["LA GRADE A esophagitis", "LA GRADE B esophagitis", "LA GRADE C esophagitis", "LA GRADE D esophagitis", "No esophagitis", "Quality too poor to assess",
       ],
+      required: true,
       answer: "",
     },
     {
@@ -18,12 +19,14 @@ function Quiz() {
       question:
         "On a scale from 1 (low being between 1 to 5) to 10 (high being between 6 to 10), how confident are you in your assessment of esophagitis severity?",
       options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+      required: true,
       answer: "",
     },
     {
       id: 3,
       question: "The overall quality of the images/video was:",
       options: ["Excellent", "Good", "Acceptable", "Poor", "Very Poor"],
+      required: true,
       answer: "",
     },
     {
@@ -75,14 +78,17 @@ function Quiz() {
     });
   }
 
-  useEffect(() => {
+  const handleSubmit= (event) => {
+    event.preventDefault();
     localStorage.setItem("answers", JSON.stringify(questions));
-  }, [questions]);
+    alert("Quiz submitted!");
+  };
 
   return (
     <div className="iwgco">
       <h4>Review all images or the video and then provide your assessment</h4>
       <h4><span className="required">*</span> Response is required.</h4>
+      <form onSubmit={handleSubmit}>
       {questions.map((question) => {
         if (question.options) {
           return (
@@ -92,6 +98,7 @@ function Quiz() {
               question={question.question}
               options={question.options}
               selectedOption={question.answer}
+              required= {question.required}
               onOptionChange={handleOptionChange}
             />
           );
@@ -106,10 +113,12 @@ function Quiz() {
             />
           );
         }
+       
       })}
       <div className="quiz-submit">
-          <button type="submit" onClick={()=> alert("Form Submitted")}>Submit</button>
+          <button type="submit">Submit</button>
         </div>
+        </form>
     </div>
   );
 }

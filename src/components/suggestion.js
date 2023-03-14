@@ -12,7 +12,7 @@ function TextAnswerComponent(props) {
 
   const handleTextAnswerChange = (event) => {
     setTextAnswer(event.target.value);
-    localStorage.setItem(props.questionId, event.target.value);
+    //localStorage.setItem(props.questionId, event.target.value);
   }
 
   return (
